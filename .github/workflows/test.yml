@@ -1,25 +1,34 @@
-name: Demo using HTML Code
+name: Deploy HTML Page
 
 on:
   push:
-    banches: [main]
+    branches: [ main ]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
-  demo:
+  build:
     runs-on: ubuntu-latest
-    steps:
-     - uses: actions/checkout@v3
-     
-     - name: List files
-       run: ls 
-       
-     - name: Print HTML file
-       run: cat index.html
-       
-     - name: Upload to Gitbub pages
-       uses: actions/upload-pages-artifact@v3
-       with:
-         path: ./
 
-     - name: Publish
-       uses: actions/deploy-pages@v4
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
