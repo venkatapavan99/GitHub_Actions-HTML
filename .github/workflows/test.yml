@@ -15,4 +15,11 @@ jobs:
        
      - name: Print HTML file
        run: cat index.html
-  
+       
+     - name: Upload to Gitbub pages
+       uses: actions/upload-pages-artifact@v3
+       with:
+         path: ./
+
+     - name: Publish
+       uses: actions/deploy-pages@v4
