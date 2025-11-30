@@ -1,0 +1,16 @@
+Name: Demo using HTML Code
+
+on:
+  push:
+    banches: [main]
+
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+steps:
+ - uses: actions/checkout@v3
+ - name: List files
+   run: ls 
+ - name: Print HTML file
+   run: cat index.html
+  
