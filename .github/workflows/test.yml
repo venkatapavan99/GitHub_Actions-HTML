@@ -1,4 +1,4 @@
-name: Deploy HTML Page
+name: Deploy HTML Pages
 
 on:
   push:
